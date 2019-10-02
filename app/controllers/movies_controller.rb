@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if params[:sortby] == "title" or params[:sortby] == "release_date"
+    if !params[:sortby].nil? #params[:sortby] == "title" || params[:sortby] == "release_date"
       @movies = Movie.order(params[:sortby]).all
     else
       @movies = Movie.all
