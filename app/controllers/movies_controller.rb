@@ -20,7 +20,7 @@ class MoviesController < ApplicationController
       @movies = Movie.all
     end
     
-    @all_ratings = ['PG','G']
+    @all_ratings = Movie.getPossibleRatings
   end
 
   def new
