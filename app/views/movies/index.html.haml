@@ -4,9 +4,9 @@
 %table#movies.table.table-striped.col-md-12
   %thead
     %tr
-      %th= link_to "Movie Title", :sortby => "title"
+      %th{ :class = (@sortby_column == "title" ? 'hilite' : nil) }= link_to "Movie Title", :sortby => "title"
       %th Rating
-      %th= link_to "Release Date", :sortby => "release_date"
+      %th{ :class = (@sortby_column == "release_date" ? 'hilite' : nil) }= link_to "Release Date", :sortby => "release_date"
       %th More Info
   %tbody
     - @movies.each do |movie|
