@@ -1,10 +1,10 @@
 -#  This file is app/views/movies/index.html.haml
 %h2 All Movies
-  
+
 %table#movies.table.table-striped.col-md-12
   %thead
     %tr
-      %th{ class: (@sortby_column == "title" ? 'hilite' : nil) }= link_to "Movie Title", :sortby => "title"
+      %thz{ class: (@sortby_column == "title" ? 'hilite' : nil) }= link_to "Movie Title", :sortby => "title"
       %th Rating
       %th{ class: (@sortby_column == "release_date" ? 'hilite' : nil) }= link_to "Release Date", :sortby => "release_date"
       %th More Info

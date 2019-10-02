@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
       @movies = Movie.all
     end
     
-    @all_ratings = ['G','PG']
+    @all_ratings = ["P","PG"]
   end
 
   def new
