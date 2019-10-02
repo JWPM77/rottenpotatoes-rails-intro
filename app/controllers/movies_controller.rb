@@ -20,7 +20,7 @@ class MoviesController < ApplicationController
       @movies = Movie.all
     end
     
-    @all_ratings = Movie.getPossibleRatings
+    @all_ratings = Movie.select(:rating).distinct.all
   end
 
   def new
