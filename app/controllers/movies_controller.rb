@@ -19,6 +19,8 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.all
     end
+    
+    @all_ratings = ['PG','G']
   end
 
   def new
