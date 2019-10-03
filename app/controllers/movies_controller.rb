@@ -17,9 +17,9 @@ class MoviesController < ApplicationController
     
     if params[:sortby] == "title" || params[:sortby] == "release_date"
       @sortby_column = params[:sortby]
-      @movies = Movie.with_ratings(ratings_selected).order(params[:sortby]).all
+      @movies = Movie.order(params[:sortby]).all
     else
-      @movies = Movie.with_ratings(ratings_selected).all
+      @movies = Movie.where(:rating => "G").all
     end
   end
 
