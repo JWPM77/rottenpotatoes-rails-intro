@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
     if params[:sortby] == "title" || params[:sortby] == "release_date"
       session[:sortby] = params[:sortby]
     elsif params[:sortby].nil? && !session[:sortby].nil?
-      redirect_to movies_path,session
+      redirect_to movies_path,{:sortby => session[:sortby]}
     end
     @sortby_column = session[:sortby]
     
