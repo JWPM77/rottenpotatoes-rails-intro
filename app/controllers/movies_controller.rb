@@ -32,12 +32,12 @@ class MoviesController < ApplicationController
     
     #ratings_to_display = @ratings_selected.keys.length == 0 ? @all_ratings : @ratings_selected.keys
     #@movies = Movie.where(:rating => @ratings_selected.keys).all
-    @movies = Movie.all
+    #@movies = Movie.all
     
-    if params[:sortby] == "title" || params[:sortby] == "release_date"
-      @sortby_column = params[:sortby]
-      @movies = Movie.order(params[:sortby]).all
-    end
+    #if params[:sortby] == "title" || params[:sortby] == "release_date"
+    #  @sortby_column = params[:sortby]
+      @movies = Movie.order(@sortby_column).all
+    #end
   end
 
   def new
