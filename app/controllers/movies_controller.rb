@@ -21,6 +21,7 @@ class MoviesController < ApplicationController
     end
     
     @all_ratings = Movie.getPossibleRatings
+    #@ratings_selected = params[:ratings]
   end
 
   def new
