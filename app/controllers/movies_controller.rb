@@ -12,27 +12,30 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.get_possible_ratings
-    @ratings_selected = nil
+    @ratings_selected = {}
     @sortby_column = nil
     
     if params[:sortby] == "title" || params[:sortby] == "release_date"
       session[:sortby] = params[:sortby]
+    elsif params[:sortby].nil? && !session[:sortby].nil?
+      redirect_to movies_path,session
     end
     @sortby_column = session[:sortby]
     
-    if !params[:ratings].nil?
-      session[:ratings] = params[:ratings]
-    elsif session[:ratings].nil?
-      session[:ratings] = {}
-      @all_ratings.each do |rating|
-        session[:ratings][rating] = true
-      end
-    end
-    @ratings_selected = session[:ratings]
+    #if !params[:ratings].nil?
+    #  session[:ratings] = params[:ratings]
+    #elsif session[:ratings].nil?
+    #  session[:ratings] = {}
+    #  @all_ratings.each do |rating|
+    #    session[:ratings][rating] = true
+    #  end
+    #  
+    #  redirect_to movies_path,session
+    #end
+    #@ratings_selected = session[:ratings]
     
-    redirect_to session
-
-    @movies = Movie.where(:rating => @ratings_selected.keys).order(@sortby_column).all
+    #@movies = Movie.where(:rating => @ratings_selected.keys).order(@sortby_column).all
+    @movies = Movie.order(@sortby_column).all
   end
 
   def new
