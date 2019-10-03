@@ -12,11 +12,27 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.get_possible_ratings
-    @ratings_selected = params[:ratings].nil? ? @all_ratings : params[:ratings]
-    ratings_to_display = @ratings_selected.keys.length == 0 ? @all_ratings : @ratings_selected.keys
-    @movies = Movie.where(:rating => ratings_to_display).all
-    
+    @ratings_selected = nil
     @sortby_column = nil
+    
+    if params[:sortby] == "title" || params[:sortby] == "release_date"
+      session[:sortby] = params[:sortby]
+    end
+    @sortby_column = session[:sortby]
+    
+    if !params[:ratings].nil?
+      session[:ratings] = params[:ratings]
+    elsif @ratings_selected.nil
+      session[:ratings] = {}
+      @all_ratings.each do |rating|
+        session[:ratings][rating] = true
+      end
+    end
+    @ratings_selected = session[:ratings]
+    
+    #ratings_to_display = @ratings_selected.keys.length == 0 ? @all_ratings : @ratings_selected.keys
+    @movies = Movie.where(:rating => @ratings_selected.keys).all
+    
     if params[:sortby] == "title" || params[:sortby] == "release_date"
       @sortby_column = params[:sortby]
       @movies = Movie.order(params[:sortby]).all
