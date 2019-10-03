@@ -13,13 +13,13 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = Movie.get_possible_ratings
     @ratings_selected = params[:ratings].nil? ? {} : params[:ratings]
-    @sortby_column = nil
+    ratings_to_display = ratings_selected.keys.length == 0 ? @all_ratings : @ratings_selected.keys
+    @movies = Movie.where(:rating => ratings_to_display).all
     
+    @sortby_column = nil
     if params[:sortby] == "title" || params[:sortby] == "release_date"
       @sortby_column = params[:sortby]
       @movies = Movie.order(params[:sortby]).all
-    else
-      @movies = Movie.where(:rating => ["G","PG"]).all
     end
   end
 
