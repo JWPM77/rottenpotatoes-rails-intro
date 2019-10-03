@@ -11,17 +11,16 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @all_ratings = Movie.get_possible_ratings
+    @ratings_selected = params[:ratings].nil? ? {} : params[:ratings]
     @sortby_column = nil
     
     if params[:sortby] == "title" || params[:sortby] == "release_date"
       @sortby_column = params[:sortby]
-      @movies = Movie.order(params[:sortby]).all
+      @movies = Movie.with_ratings(ratings_selected).order(params[:sortby]).all
     else
-      @movies = Movie.all
+      @movies = Movie.with_ratings(ratings_selected).all
     end
-    
-    @all_ratings = Movie.getPossibleRatings
-    @ratings_selected = params[:ratings]
   end
 
   def new
