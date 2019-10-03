@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.get_possible_ratings
-    @ratings_selected = params[:ratings].nil? ? {} : params[:ratings]
+    @ratings_selected = params[:ratings].nil? ? @all_ratings : params[:ratings]
     ratings_to_display = @ratings_selected.keys.length == 0 ? @all_ratings : @ratings_selected.keys
     @movies = Movie.where(:rating => ratings_to_display).all
     
