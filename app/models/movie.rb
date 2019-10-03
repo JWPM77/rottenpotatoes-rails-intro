@@ -1,5 +1,10 @@
 class Movie < ActiveRecord::Base
-    #def getPossibleRatings
-    #    return self.select(:rating).distinct.all
-    #end
+    def getPossibleRatings
+        rating_list = []
+        self.select(:rating).distinct.all.each do |item|
+            rating_list << item.rating
+        end
+        
+        return rating_list.sort
+    end
 end
