@@ -20,7 +20,12 @@ class MoviesController < ApplicationController
       @movies = Movie.all
     end
     
-    @all_ratings = Movie.select(:rating).distinct.all
+    rating_list = []
+    self.select(:rating).distinct.all.each do |item|
+        rating_list << item.rating
+    end
+    
+    @all_ratings = rating_list
   end
 
   def new
