@@ -1,5 +1,5 @@
 class Movie < ActiveRecord::Base
-    def getPossibleRatings
+    def self.getPossibleRatings
         rating_list = []
         self.select(:rating).distinct.all.each do |item|
             rating_list << item.rating
