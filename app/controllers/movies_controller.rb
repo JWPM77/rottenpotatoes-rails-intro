@@ -30,9 +30,7 @@ class MoviesController < ApplicationController
     end
     @ratings_selected = session[:ratings]
     
-    #ratings_to_display = @ratings_selected.keys.length == 0 ? @all_ratings : @ratings_selected.keys
-    #@movies = Movie.where(:rating => @ratings_selected.keys).all
-    #@movies = Movie.all
+    redirect_to session
 
     @movies = Movie.where(:rating => @ratings_selected.keys).order(@sortby_column).all
   end
