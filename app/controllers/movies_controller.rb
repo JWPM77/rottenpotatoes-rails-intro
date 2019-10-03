@@ -12,30 +12,28 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.get_possible_ratings
-    @ratings_selected = {}
-    @sortby_column = nil
+    @ratings_selected = nil
+    @sortby_column = :id
     
     if params[:sortby] == "title" || params[:sortby] == "release_date"
       session[:sortby] = params[:sortby]
-    elsif params[:sortby].nil? && !session[:sortby].nil?
-      redirect_to movies_path,{:sortby => session[:sortby]}
     end
     @sortby_column = session[:sortby]
     
-    #if !params[:ratings].nil?
-    #  session[:ratings] = params[:ratings]
-    #elsif session[:ratings].nil?
-    #  session[:ratings] = {}
-    #  @all_ratings.each do |rating|
-    #    session[:ratings][rating] = true
-    #  end
-    #  
-    #  redirect_to movies_path,session
-    #end
-    #@ratings_selected = session[:ratings]
-    
-    #@movies = Movie.where(:rating => @ratings_selected.keys).order(@sortby_column).all
-    @movies = Movie.order(@sortby_column).all
+    if !params[:ratings].nil?
+      session[:ratings] = params[:ratings]
+    elsif session[:ratings].nil?
+      session[:ratings] = {}
+      @all_ratings.each do |rating|
+        session[:ratings][rating] = true
+      end
+    end
+    @ratings_selected = session[:ratings]
+
+    @movies = Movie.where(:rating => @ratings_selected.keys).order(@sortby_column).all
+    if (params[:sortby].nil? or params[:ratings].nil?)
+      redirect_to movies_path(:sortby => session[:sortby], :ratings => session[:ratings])
+    end
   end
 
   def new
