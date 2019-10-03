@@ -20,18 +20,19 @@ class MoviesController < ApplicationController
     end
     @sortby_column = session[:sortby]
     
-    if !params[:ratings].nil?
-      session[:ratings] = params[:ratings]
-    elsif @ratings_selected.nil
-      session[:ratings] = {}
-      @all_ratings.each do |rating|
-        session[:ratings][rating] = true
-      end
-    end
-    @ratings_selected = session[:ratings]
+    #if !params[:ratings].nil?
+    #  session[:ratings] = params[:ratings]
+    #elsif @ratings_selected.nil
+    #  session[:ratings] = {}
+    #  @all_ratings.each do |rating|
+    #    session[:ratings][rating] = true
+    #  end
+    #end
+    #@ratings_selected = session[:ratings]
     
     #ratings_to_display = @ratings_selected.keys.length == 0 ? @all_ratings : @ratings_selected.keys
-    @movies = Movie.where(:rating => @ratings_selected.keys).all
+    #@movies = Movie.where(:rating => @ratings_selected.keys).all
+    @movies = Movie.all
     
     if params[:sortby] == "title" || params[:sortby] == "release_date"
       @sortby_column = params[:sortby]
