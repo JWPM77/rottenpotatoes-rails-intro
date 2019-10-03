@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
       @sortby_column = params[:sortby]
       @movies = Movie.order(params[:sortby]).all
     else
-      @movies = Movie.where(:rating => "G").all
+      @movies = Movie.where(:rating => ["G","PG"]).all
     end
   end
 
